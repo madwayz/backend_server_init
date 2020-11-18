@@ -1,4 +1,5 @@
-from app import app
+from app import flask
+
 
 def application(*args):	
-	app.run()
+	flask.run()
