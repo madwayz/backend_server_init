@@ -1,8 +1,12 @@
-from os import environ
+import os
 
 DATABASE = {
-    "dbname": environ['POSTGRES_DB'],
-    "user": environ['POSTGRES_USER'],
+    "dbname": os.environ.get('POSTGRES_DB'),
+    "user": os.environ.get('POSTGRES_USER'),
     "host": 'postgres',
-    "password": environ['POSTGRES_PASSWORD']
+    "password": os.environ.get('POSTGRES_PASSWORD')
 }
+
+
+class Config:
+    JSON_AS_ASCII = False
