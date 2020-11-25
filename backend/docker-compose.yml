@@ -8,6 +8,8 @@ services:
       - postgres
     ports:
         - 5000:5000
+    volumes:
+        - "./web:/web"
 
   postgres:
     container_name: db
@@ -21,12 +23,15 @@ services:
       POSTGRES_DB: postgres
 
   nginx:
-      image: nginx
-      container_name: nginx
-      build: ./nginx
-      restart: always
-      ports:
+    image: nginx
+    container_name: nginx
+    build: ./nginx
+    restart: always
+    ports:
         - 80:80
-      depends_on:
+    depends_on:
         - backend
+    volumes:
+        - "./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf"
+       
 

@@ -4,12 +4,6 @@ WORKDIR /web
 
 ADD . /web
 
-RUN pwd
-RUN ls -la
-
-RUN pwd
-RUN ls -la app/
-
 RUN apt-get update
 RUN apt-get install -y build-essential python3-dev nano lsof
 
@@ -21,6 +15,8 @@ RUN usermod --non-unique --uid 1000 www-data \
 ENV FLASK_RUN_HOST=0.0.0.0
 #USER www-data
 
+
+ENV PYTHONDONTWRITEBYTECODE=1
+
 #CMD ["flask", "run"]
-RUN pwd
 CMD ["uwsgi", "--ini", "uwsgi.ini"]
