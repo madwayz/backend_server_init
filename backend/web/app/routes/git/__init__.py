@@ -1,11 +1,28 @@
-from flask_restplus import Resource, abort
+from flask_restplus import Resource, reqparse
 from app import ns_api
+from app.config import REPO_NAME
+import os
+import socket
 
-
-@ns_api.route('/git-webhook', methods=['POST'])
+@ns_api.route('/git.webhook', methods=['POST'])
 class GitWebhook(Resource):
 
     def post(self):
-        print(ns_api.payload)
+        if not ns_api.payload:
+            return {'status': 'error'}, 403
+            
+        repo = ns_api.payload.get('repository')
+        
+        if not repo or repo.get('name') != REPO_NAME:
+            return {'status': 'error'}, 403
+                        
+        SOCKET_FILE = '/tmp/sockets/git-webhook.sock'
+
+        if not os.path.exists(SOCKET_FILE):
+            return {'status': 'error'}, 500
+
+        with socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM) as client:
+            client.connect(SOCKET_FILE)
+            client.sendall(bytearray('\xDE\xAD\xBE\xEF', 'utf-8'))
+
         return {'status': 'ok'}
-  

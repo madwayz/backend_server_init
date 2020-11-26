@@ -10,7 +10,8 @@ services:
         ports:
             - 5000:5000
         volumes:
-            - "./web:/web"
+            - ./web:/web:rw
+            - ./git-webhook/sockets:/tmp/sockets:rw
 
     postgres:
         container_name: db
@@ -33,9 +34,9 @@ services:
         depends_on:
             - backend
         volumes:
-            - "./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf"
-            - "./nginx/logs/access.log:/var/log/nginx/access.log"
-            - "./nginx/logs/error.log:/var/log/nginx/error.log"
+            - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf:rw
+            - ./nginx/logs/access.log:/var/log/nginx/access.log
+            - ./nginx/logs/error.log:/var/log/nginx/error.log
             
     redis:
         image: redis
