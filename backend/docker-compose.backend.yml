@@ -35,9 +35,3 @@ services:
             - "./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf"
             - "./nginx/logs/access.log:/var/log/nginx/access.log"
             - "./nginx/logs/error.log:/var/log/nginx/error.log"
-            
-    redis:
-        image: redis
-        container_name: redis
-        ports:
-            - 6379:6379

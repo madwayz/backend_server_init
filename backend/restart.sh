@@ -1,1 +1,1 @@
-docker-compose restart
+docker-compose -f docker-compose.backend.yml restart
