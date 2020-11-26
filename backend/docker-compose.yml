@@ -2,7 +2,7 @@ version: "2.4"
 services:
     backend:
         container_name: web
-        build: ./web
+        build: ./services/web
         restart: always
         depends_on:
           - postgres
@@ -10,11 +10,11 @@ services:
         ports:
             - 5000:5000
         volumes:
-            - ./web:/web:rw
-            - ./git-webhook/sockets:/tmp/sockets:rw
+            - ./services/web:/web:rw
+            - ./daemons/git-webhook/sockets:/tmp/sockets:rw
 
     postgres:
-        container_name: db
+        container_name: postgres
         image: postgres:13.1
         restart: always
         ports:
@@ -27,16 +27,16 @@ services:
     nginx:
         image: nginx
         container_name: nginx
-        build: ./nginx
+        build: ./services/nginx
         restart: always
         ports:
             - 80:80
         depends_on:
             - backend
         volumes:
-            - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf:rw
-            - ./nginx/logs/access.log:/var/log/nginx/access.log
-            - ./nginx/logs/error.log:/var/log/nginx/error.log
+            - ./services/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf:rw
+            - ./services/nginx/logs/access.log:/var/log/nginx/access.log
+            - ./services/nginx/logs/error.log:/var/log/nginx/error.log
             
     redis:
         image: redis

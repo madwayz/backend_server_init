@@ -1,1 +1,1 @@
-docker-compose -f docker-compose.backend.yml stop
+docker-compose stop

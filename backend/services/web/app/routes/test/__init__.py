@@ -97,3 +97,9 @@ class Users(Resource):
         if not users:
             abort(404)
         return users
+        
+@ns_api.route('/health')
+class Users(Resource):
+    def get(self):
+        return "OK"
+
