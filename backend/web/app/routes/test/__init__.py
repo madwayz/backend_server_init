@@ -4,8 +4,6 @@ from app.routes.test.models import *
 from app import ns_api
 
 """
-ВАЖНО! В нашем случае используется ns_api, а не api.
-
 model = api.model('Class', {'status': fields.String('Ok')})
 Мы говорим, что работаем со словарём, в нём будет ключ 'status', а значение должно быть string. По дефолту "Ok"
  
